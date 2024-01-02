@@ -11,29 +11,20 @@ export default function App() {
 function Counter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
-  const date = new Date('2 Jan 2024');
 
+  const date = new Date('2 Jan 2024');
   date.setDate(date.getDate() + count);
 
-  function minusStep() {
-    setStep((curStep) => curStep - 1);
-  }
-
-  function addStep() {
-    setStep((curStep) => curStep + 1);
-  }
-
-  function minusCount() {
-    setCount((curCount) => curCount - step);
-  }
-
-  function addCount() {
-    setCount((curCount) => curCount + step);
-  }
+  const minusStep = () => setStep((curStep) => curStep - 1);
+  const addStep = () => setStep((curStep) => curStep + 1);
+  const minusCount = () => setCount((curCount) => curCount - 1);
+  const addCount = () => setCount((curCount) => curCount + 1);
 
   return (
     <div>
-      <h1 className="text-center text-primary p-2 my-3">Counter React App</h1>
+      <h1 className="text-center text-primary p-4 my-4 text-uppercase">
+        Counter React App
+      </h1>
       <div className="container p-5 my-5 border">
         <div>
           <button className="btn btn-danger " onClick={minusStep}>
