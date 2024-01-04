@@ -12,39 +12,50 @@ function Counter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
 
-  const date = new Date('2 Jan 2024');
+  const date = new Date();
   date.setDate(date.getDate() + count);
 
-  const minusStep = () => setStep((curStep) => curStep - 1);
-  const addStep = () => setStep((curStep) => curStep + 1);
-  const minusCount = () => setCount((curCount) => curCount - 1);
-  const addCount = () => setCount((curCount) => curCount + 1);
+  const stepOnchange = (e) => {
+    setStep(Number(e.target.value));
+  };
+
+  const countOnchange = (e) => {
+    setCount(Number(e.target.value));
+  };
+
+  const handleReset = () => {
+    setStep(1);
+    setCount(0);
+  };
+
+  const lessCount = () => setCount((curCount) => curCount - step);
+  const addCount = () => setCount((curCount) => curCount + step);
 
   return (
     <div>
       <h1 className="text-center text-primary p-4 my-4 text-uppercase">
-        Counter React App
+        Date Counter App
       </h1>
       <div className="container p-5 my-5 border">
         <div>
-          <button className="btn btn-danger " onClick={minusStep}>
-            ➖
-          </button>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={step}
+            onChange={stepOnchange}
+          />
           <span className="text-bold"> Step: {step} </span>
-          <button className="btn btn-success" onClick={addStep}>
-            ➕
-          </button>
         </div>
         <div>
-          <span>
-            <button className="btn btn-danger" onClick={minusCount}>
-              ➖
-            </button>
-            Count : {count}
-            <button className="btn btn-success" onClick={addCount}>
-              ➕
-            </button>
-          </span>
+          <button className="btn btn-danger" onClick={lessCount}>
+            ➖
+          </button>
+          <input type="text" value={count} onChange={countOnchange} />
+
+          <button className="btn btn-success" onClick={addCount}>
+            ➕
+          </button>
         </div>
         <p>
           <span>
@@ -56,6 +67,13 @@ function Counter() {
           </span>
           <span>{date.toDateString()}</span>
         </p>
+        {step !== 1 || count !== 0 ? (
+          <div>
+            <button className="btn btn-danger" onClick={handleReset}>
+              Reset
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
